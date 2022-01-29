@@ -23,7 +23,7 @@ def get_time_from_trackpoint(p):
 
 def get_time_from_datapoints(d):
     lst = []
-    for i in range(1, len(d)):
+    for i in range(0, len(d)):
         s = get_time_from_trackpoint(d[i])
         s2 = s.split('T')[-1].split('.')[0]
         t = dt.datetime.strptime(s2, '%H:%M:%S')
