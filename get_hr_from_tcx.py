@@ -31,7 +31,7 @@ def get_time_from_datapoints(d):
     return lst
 
 
-def get_time_increments(lst):
+def calculate_time_increments(lst):
     new_lst = [0]
     for i in range(1, len(lst)):
         diff = lst[i] - lst[i-1]
