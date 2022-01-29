@@ -21,7 +21,7 @@ def get_time_from_trackpoint(p):
 
 
 def get_time_from_datapoints(d):
-    lst = [0]
+    lst = []
     for i in range(1, len(d)):
         t = get_time_from_trackpoint(d[i])
         lst.append(t)
