@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 import datetime as dt
-# import pandas as pd
+import pandas as pd
 
 with open("teste.tcx") as f:
     tcx = ET.parse(f)
@@ -37,3 +37,16 @@ def calculate_time_increments(lst):
         diff = lst[i] - lst[i-1]
         new_lst.append(diff.total_seconds())
     return new_lst
+
+
+def get_hr_from_trackpoint(p):
+    elem = p.find(nms_base + 'HeartRateBpm')
+    s = elem.find(nms_base + 'Value').text
+    return int(s)
+
+
+HRs = list(map(get_hr_from_trackpoint, datapoints))
+ts = get_time_from_datapoints(datapoints)
+deltas = calculate_time_increments(ts)
+
+df = pd.DataFrame(zip(deltas, HRs), columns=['Secs', 'HRs'])
