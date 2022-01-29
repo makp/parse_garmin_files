@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+import datetime as dt
 # import pandas as pd
 
 with open("teste.tcx") as f:
@@ -23,6 +24,16 @@ def get_time_from_trackpoint(p):
 def get_time_from_datapoints(d):
     lst = []
     for i in range(1, len(d)):
-        t = get_time_from_trackpoint(d[i])
+        s = get_time_from_trackpoint(d[i])
+        s2 = s.split('T')[-1].split('.')[0]
+        t = dt.datetime.strptime(s2, '%H:%M:%S')
         lst.append(t)
     return lst
+
+
+def get_time_increments(lst):
+    new_lst = [0]
+    for i in range(1, len(lst)):
+        diff = lst[i] - lst[i-1]
+        new_lst.append(diff.total_seconds())
+    return new_lst
