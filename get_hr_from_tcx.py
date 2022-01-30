@@ -50,11 +50,13 @@ trackpoints = list(root.iter(nms_base + 'Trackpoint'))
 
 
 def get_hr_from_trackpoint(p):
-    """Get HR from a Trackpoint field.
-FIXME: Deal with cases when HR not present."""
+    """Get HR from a Trackpoint field."""
     elem = p.find(nms_base + 'HeartRateBpm')
-    s = elem.find(nms_base + 'Value').text
-    return int(s)
+    try:
+        hr = int(elem.find(nms_base + 'Value').text)
+    except AttributeError:
+        hr = None
+    return hr
 
 
 HRs = list(map(get_hr_from_trackpoint, trackpoints))
