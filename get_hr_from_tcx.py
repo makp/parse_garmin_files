@@ -8,9 +8,7 @@ with open("teste.tcx") as f:
 # TCX file hieararchy:
 # Root -> Activities -> Activity -> Lap -> Track -> Trackpoint
 
-
 root = tcx.getroot()
-
 nms_base = '{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}'
 
 tracks = list(root.iter(nms_base + 'Track'))
@@ -47,28 +45,6 @@ def calc_time_increments(tracks):
         out.extend(lst_inc)
     return out
 
-
-
-# def get_time_from_datapoints(d):
-#     lst = []
-#     for i in range(0, len(d)):
-#         s = get_time_from_trackpoint(d[i])
-#         s2 = s.split('T')[-1].split('.')[0]
-#         t = dt.datetime.strptime(s2, '%H:%M:%S')
-#         lst.append(t)
-#     return lst
-
-
-# def calculate_time_increments(lst):
-#     """ Calculates the time interval between HR readings.
-# FIXME: The drawkback of using time increments calculated as above is
-# that it doesn't take into account when you pause the activity. Maybe Garmin
-# creates a new Track every time the activity is paused."""
-#     new_lst = [0]
-#     for i in range(1, len(lst)):
-#         diff = lst[i] - lst[i-1]
-#         new_lst.append(diff.total_seconds())
-#     return new_lst
 
 datapoints = list(root.iter(nms_base + 'Trackpoint'))
 
