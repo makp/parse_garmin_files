@@ -46,18 +46,18 @@ def calc_time_increments(tracks):
     return out
 
 
-datapoints = list(root.iter(nms_base + 'Trackpoint'))
+trackpoints = list(root.iter(nms_base + 'Trackpoint'))
 
 
 def get_hr_from_trackpoint(p):
-    """Get HR from Trackpoint.
+    """Get HR from a Trackpoint field.
 FIXME: Deal with cases when HR not present."""
     elem = p.find(nms_base + 'HeartRateBpm')
     s = elem.find(nms_base + 'Value').text
     return int(s)
 
 
-HRs = list(map(get_hr_from_trackpoint, datapoints))
+HRs = list(map(get_hr_from_trackpoint, trackpoints))
 deltas = calc_time_increments(tracks)
 
 df = pd.DataFrame(zip(deltas, HRs), columns=['Secs', 'HRs'])
