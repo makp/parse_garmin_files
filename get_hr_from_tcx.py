@@ -32,6 +32,9 @@ def get_time_from_datapoints(d):
 
 
 def calculate_time_increments(lst):
+    """ Calculates the time interval between HR readings.
+FIXME: The drawkback of using time increments calculated as above is
+that it doesn't take into account when you pause the activity."""
     new_lst = [0]
     for i in range(1, len(lst)):
         diff = lst[i] - lst[i-1]
