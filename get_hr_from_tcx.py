@@ -30,6 +30,10 @@ def calc_increments(lst):
 
 
 def calc_time_increments(tracks):
+    """ Calculates the elapsed time between HR readings.
+    BUG: This function produces negative values. This seems
+    to occur when an HR reading occurs at midnight ('00:00:00').
+    """
     out = []
     for track in tracks:
         lst = get_track_timestamps(track)
