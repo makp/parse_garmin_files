@@ -2,16 +2,8 @@ import xml.etree.ElementTree as ET
 import datetime as dt
 import pandas as pd
 
-with open("teste.tcx") as f:
-    tcx = ET.parse(f)
 
-# TCX file hieararchy:
-# Root -> Activities -> Activity -> Lap -> Track -> Trackpoint
-
-root = tcx.getroot()
 nms_base = '{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}'
-
-tracks = list(root.iter(nms_base + 'Track'))
 
 
 def get_time_from_trackpoint(p):
@@ -46,9 +38,6 @@ def calc_time_increments(tracks):
     return out
 
 
-trackpoints = list(root.iter(nms_base + 'Trackpoint'))
-
-
 def get_hr_from_trackpoint(p):
     """Get HR from a Trackpoint field."""
     elem = p.find(nms_base + 'HeartRateBpm')
@@ -59,7 +48,17 @@ def get_hr_from_trackpoint(p):
     return hr
 
 
-HRs = list(map(get_hr_from_trackpoint, trackpoints))
-deltas = calc_time_increments(tracks)
-
-df = pd.DataFrame(zip(deltas, HRs), columns=['Secs', 'HRs'])
+def create_pandas_with_hrs(filename):
+    """Use the TCX file to create a Pandas dataframe with HRs.
+TCX file hieararchy:
+Root -> Activities -> Activity -> Lap -> Track -> Trackpoint"""
+    filepath = "activities/" + filename + ".tcx"
+    with open(filepath) as f:
+        tcx = ET.parse(f)
+    root = tcx.getroot()
+    tracks = list(root.iter(nms_base + 'Track'))
+    trackpoints = list(root.iter(nms_base + 'Trackpoint'))
+    HRs = list(map(get_hr_from_trackpoint, trackpoints))
+    deltas = calc_time_increments(tracks)
+    df = pd.DataFrame(zip(deltas, HRs), columns=['Secs', 'HRs'])
+    return df
