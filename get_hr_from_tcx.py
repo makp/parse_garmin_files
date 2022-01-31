@@ -16,7 +16,7 @@ def get_track_timestamps(track):
     for p in track:
         s1 = get_time_from_trackpoint(p)
         s2 = s1.split('T')[-1].split('.')[0]
-        t = dt.datetime.strptime(s2, '%H:%M:%S').time()
+        t = dt.datetime.strptime(s2, '%H:%M:%S')
         lst.append(t)
     return lst
 
