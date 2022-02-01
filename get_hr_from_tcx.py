@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-import datetime as dt
+import dateutil.parser
 import pandas as pd
 
 
@@ -15,8 +15,7 @@ def get_track_timestamps(track):
     lst = []
     for p in track:
         s1 = get_time_from_trackpoint(p)
-        s2 = s1.split('T')[-1].split('.')[0]
-        t = dt.datetime.strptime(s2, '%H:%M:%S')
+        t = dateutil.parser.isoparse(s1)
         lst.append(t)
     return lst
 
@@ -30,10 +29,7 @@ def calc_increments(lst):
 
 
 def calc_time_increments(tracks):
-    """ Calculates the elapsed time between HR readings.
-    BUG: This function produces negative values. This seems
-    to occur when an HR reading occurs at midnight ('00:00:00').
-    """
+    """ Calculates the elapsed time between HR readings."""
     out = []
     for track in tracks:
         lst = get_track_timestamps(track)
