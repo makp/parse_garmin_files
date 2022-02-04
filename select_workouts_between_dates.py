@@ -45,7 +45,6 @@ def select_workouts_between_dates(t0="Mon", t1=0):
     workout_dates = [get_date_from_filename(s) for s in lst_files]
     df_workouts = pd.DataFrame(zip(workout_dates, lst_files),
                                columns=['date', 'file'])
-    tstart = get_date_last_monday()
-    tend = get_date_n_days_ago(t1)
+    tstart, tend = [get_date_n_days_ago(d) for d in [t0, t1]]
     df_selection = df_workouts.query('date >= @tstart and date <= @tend')
     return df_selection.sort_values(by=['date'])
