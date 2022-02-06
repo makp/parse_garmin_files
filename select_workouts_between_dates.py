@@ -7,7 +7,7 @@ import datetime as dt
 import re
 import glob
 
-lst_files = glob.glob('activities/*.tcx')
+lst_files = glob.glob('workouts/*.tcx')
 
 
 def get_date_from_filename(s):

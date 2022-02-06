@@ -52,7 +52,7 @@ def create_pandas_with_hrs(filename):
     """Use the TCX file to create a Pandas dataframe with HRs.
 TCX file hieararchy:
 Root -> Activities -> Activity -> Lap -> Track -> Trackpoint"""
-    filepath = "activities/" + filename + ".tcx"
+    filepath = "workouts/" + filename + ".tcx"
     with open(filepath) as f:
         tcx = ET.parse(f)
     root = tcx.getroot()
