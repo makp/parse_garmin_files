@@ -7,6 +7,7 @@ def path_to_gpx(path_to_tcx):
 
 
 def get_workout_info(path_to_tcx):
+    """Get name and type of a workout from its gpx file."""
     path = path_to_gpx(path_to_tcx)
     with open(path) as f:
         gpx = gpxpy.parse(f)
@@ -27,7 +28,10 @@ def get_workout_info(path_to_tcx):
 
 
 def get_info_from_files(pseries):
-    lst = []
+    """Return a Pandas dataframe with name and type of each workout."""
+    dic = {'name': [], 'type': []}
     for _ in pseries:
-        lst.append(get_workout_info(_))
-    return lst
+        n, t = get_workout_info(_)
+        dic['name'].append(n)
+        dic['type'].append(t)
+    return pd.DataFrame(dic)
