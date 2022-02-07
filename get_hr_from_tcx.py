@@ -48,11 +48,10 @@ def get_hr_from_trackpoint(p):
     return hr
 
 
-def create_pandas_with_hrs(filename):
+def create_pandas_with_hrs(filepath):
     """Use the TCX file to create a Pandas dataframe with HRs.
 TCX file hieararchy:
 Root -> Activities -> Activity -> Lap -> Track -> Trackpoint"""
-    filepath = "workouts/" + filename + ".tcx"
     with open(filepath) as f:
         tcx = ET.parse(f)
     root = tcx.getroot()
