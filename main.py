@@ -19,10 +19,11 @@ def filter_workouts(df, key='running'):
 
 
 def add_time_zones(df):
+    """Add columns with the time spent at each zone."""
     df_zones = create_pandas_with_zones(df['file'])
     out = pd.concat([df, df_zones], axis=1)
-    out.rename(columns={'Secs': 'Mins'}, inplace=True)
-    return round(out.loc[:, 'z1/z2':'z5']/60, 1)
+    out.loc[:, 'z1/z2':'z5'] = round(out.loc[:, 'z1/z2':'z5']/60, 1)
+    return out
 
 
 
