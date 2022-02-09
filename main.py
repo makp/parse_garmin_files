@@ -17,11 +17,3 @@ def filter_workouts_by_type(df, key='running'):
         out = df.query("type == 'treadmill_running' or type == 'running'")
     out.reset_index(drop=True, inplace=True)
     return out
-
-
-def add_time_zones(df):
-    """Add columns with the time spent at each zone."""
-    df_zones = create_df_with_zones(df['file'])
-    out = pd.concat([df, df_zones], axis=1)
-    out.loc[:, 'z1/z2':'z5'] = round(out.loc[:, 'z1/z2':'z5']/60, 1)
-    return out
