@@ -29,7 +29,7 @@ def create_df_with_zones(lst_filepath):
     return df
 
 
-def add_time_zones(df):
+def add_hr_zones(df):
     """Add columns with the time spent at each zone."""
     df_zones = create_df_with_zones(df['file'])
     out = pd.concat([df, df_zones], axis=1)
