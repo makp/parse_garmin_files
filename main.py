@@ -4,7 +4,7 @@ from get_info_about_workout import get_info_from_files
 from calc_HR_zones import create_df_with_zones
 
 
-def filter_workouts_by_date(t0="Mon", t1=0):
+def filter_workouts_by_date(df, t0="Mon", t1=0):
     """List workouts and their info within a time range."""
     df1 = select_workouts_between_dates(t0, t1)
     df2 = get_info_from_files(df1.loc[:, 'file'])
