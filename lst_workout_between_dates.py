@@ -54,8 +54,12 @@ def get_date_n_days_ago(val):
 
 
 def select_workouts_between_dates(t0="Mon", t1=0):
-    df = create_df()
+    """Select workouts within a data range and get general info about
+    workouts."""
+    df1 = create_df()
     tstart, tend = [get_date_n_days_ago(d) for d in [t0, t1]]
-    df.query('date >= @tstart and date <= @tend', inplace=True)
-    df.sort_values(by=['date'], inplace=True)
-    return df.reset_index(drop=True)
+    df1.query('date >= @tstart and date <= @tend', inplace=True)
+    df1.sort_values(by=['date'], inplace=True)
+    df1.reset_index(drop=True, inplace=True)
+    df2 = get_info_from_files(df1.loc[:, 'file'])
+    return pd.concat([df1, df2], axis=1)
