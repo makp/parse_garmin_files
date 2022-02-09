@@ -6,6 +6,8 @@ import dateutil
 import datetime as dt
 import re
 
+from get_info_about_workout import get_info_from_files
+
 
 path_to_garmin_files = 'workouts/'
 
