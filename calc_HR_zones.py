@@ -2,7 +2,7 @@ from get_hr_from_tcx import create_pandas_with_hrs
 import pandas as pd
 
 
-zone_ranges = {'z1/z2': (113, 154), 'z3': (155, 164),
+zone_ranges = {'z2': (113, 154), 'z3': (155, 164),
                'z4': (165, 173), 'z5': (174, 200)}
 
 
@@ -19,7 +19,7 @@ def create_lst_with_zones(filepath):
 
 
 def create_df_with_zones(lst_filepath):
-    """Return a pandas dataframe from a list of tcx files in which the
+    """Return a pandas dataframe from a list of .TCX files in which the
     columns list the amount of time spend at each HR zone---as
     specified by 'zone_ranges.'"""
     df = pd.DataFrame([], columns=list(zone_ranges.keys()))
@@ -33,5 +33,5 @@ def add_hr_zones(df):
     """Add columns with the time spent at each zone."""
     df_zones = create_df_with_zones(df['file'])
     out = pd.concat([df, df_zones], axis=1)
-    out.loc[:, 'z1/z2':'z5'] = round(out.loc[:, 'z1/z2':'z5']/60, 1)
+    out.loc[:, 'z2':'z5'] = round(out.loc[:, 'z2':'z5']/60, 1)
     return out
