@@ -26,4 +26,4 @@ def filter_workouts_by_date_and_type(t0="Mon", t1=0, key='running'):
     df2 = get_info_from_files(df1.loc[:, 'file'])
     df_all = pd.concat([df1, df2], axis=1)
     out = filter_workouts_by_type(df_all, key)
-    return out.drop(['file', 'type'], axis=1)
+    return out.drop(['type'], axis=1)
