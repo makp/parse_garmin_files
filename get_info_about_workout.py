@@ -1,3 +1,6 @@
+"""Use .GPX files to extract general information about workout."""
+
+
 import gpxpy
 import pandas as pd
 
@@ -7,7 +10,7 @@ def path_to_gpx(path_to_tcx):
 
 
 def get_workout_info(path_to_tcx):
-    """Get name and type of a workout from its gpx file."""
+    """Get name and type of a workout from its .GPX file."""
     path = path_to_gpx(path_to_tcx)
     with open(path) as f:
         gpx = gpxpy.parse(f)

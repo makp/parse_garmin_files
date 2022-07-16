@@ -1,4 +1,4 @@
-"""Select Garmin .TCX files based on a custom date range."""
+"""List Garmin .TCX files and general info based on a custom date range."""
 
 import pandas as pd
 import glob
