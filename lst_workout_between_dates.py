@@ -1,12 +1,10 @@
-"""List Garmin .TCX files and general info based on a custom date range."""
+"""List Garmin .TCX files and general info based on a date range."""
 
 import pandas as pd
 import glob
 import dateutil
 import datetime as dt
 import re
-
-from get_info_about_workout import get_info_from_files
 
 
 path_to_garmin_files = 'workouts/'
@@ -58,10 +56,9 @@ def get_date_n_days_ago(val):
 def select_workouts_between_dates(t0="Mon", t1=0):
     """Select workouts within a data range and get general info about
     workouts."""
-    df1 = create_df()
+    df = create_df()
     tstart, tend = [get_date_n_days_ago(d) for d in [t0, t1]]
-    df1.query('date >= @tstart and date <= @tend', inplace=True)
-    df1.sort_values(by=['date'], inplace=True)
-    df1.reset_index(drop=True, inplace=True)
-    df2 = get_info_from_files(df1.loc[:, 'file'])
-    return pd.concat([df1, df2], axis=1)
+    df.query('date >= @tstart and date <= @tend', inplace=True)
+    df.sort_values(by=['date'], inplace=True)
+    df.reset_index(drop=True, inplace=True)
+    return df
