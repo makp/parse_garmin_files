@@ -13,7 +13,7 @@ def create_lst_with_zones(filepath):
     lst = []
     for val in zone_ranges.values():
         l, u = val
-        t = df.query('HRs >= @l and HRs <= @u').loc[:, 'Secs'].sum()
+        t = len(df[(df >= l) & (df <= u)])
         lst.append(t)
     return lst
 
