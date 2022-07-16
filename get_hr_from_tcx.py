@@ -1,4 +1,4 @@
-"""Extract HRs and time increments from .TCX files.
+"""Extract HRs from .TCX files and smooth HR values in case of reading lags.
 
 TCX file hieararchy:
 Root -> Activities -> Activity -> Lap -> Track -> Trackpoint
@@ -93,7 +93,8 @@ def smooth_HR_readings(df):
 
 
 def create_pandas_with_hrs(filepath):
-    """Create a Pandas dataframe with HRs from a .TCX file."""
+    """Create a Pandas dataframe with HRs from a .TCX file, and smooth
+    the readings in case of reading lags."""
     with open(filepath) as f:
         tcx = ET.parse(f)
     root = tcx.getroot()
@@ -102,4 +103,4 @@ def create_pandas_with_hrs(filepath):
     HRs = list(map(get_hr_from_trackpoint, trackpoints))
     deltas = calc_elapsed_time_between_trackpoints(tracks)
     df = pd.DataFrame(zip(deltas, HRs), columns=['Secs', 'HRs'])
-    return df
+    return smooth_HR_readings(df)['HRs']
