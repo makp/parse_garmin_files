@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 from filter_workouts import filter_workouts_by_date_and_type
 from calc_HR_zones import add_hr_zones
 
+# FIXME: add_hr_zones seems to fail to take into account the time an activity
+# has been paused.
+
+
 df = filter_workouts_by_date_and_type(7)
 
 
