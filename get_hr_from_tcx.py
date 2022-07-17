@@ -69,12 +69,12 @@ def add_hr_values(arr1d):
     hr1, hr2, dt = arr1d
     s = int(dt) + 2
     out = np.ones((s, 2))
-    extra_hrs = np.rint(np.linspace(hr1, hr2, s))
+    extra_hrs = np.rint(np.geomspace(hr1, hr2, s))
     out[:, 1] = extra_hrs
     return out
 
 
-def hr_linearize(arr):
+def hr_multiple(arr):
     out = [add_hr_values(e) for e in arr]
     return np.concatenate(out)
 
@@ -89,7 +89,7 @@ def smooth_HR_readings(df):
     arr_hr2 = df[mask_2]['HRs'].values
     arr_dt = df[mask_2]['Secs'].values
     arr = np.array([arr_hr1, arr_hr2, arr_dt])
-    df_2 = pd.DataFrame(hr_linearize(np.transpose(arr)),
+    df_2 = pd.DataFrame(hr_multiple(np.transpose(arr)),
                         columns=["Secs", "HRs"])
     return pd.concat([df_1, df_2], ignore_index=True)
 
