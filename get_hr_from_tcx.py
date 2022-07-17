@@ -1,9 +1,12 @@
-"""Extract HRs from .TCX files and smooth HR values in case of reading lags.
+"""Extract HRs from .TCX files and smooth HR values.
 
 TCX file hieararchy:
 Root -> Activities -> Activity -> Lap -> Track -> Trackpoint
 
 Trackpoints are individual readings (HR, position, etc).
+
+I suspect pauses occur when the time difference between Trackpoints
+is higher than one second.
 """
 
 
@@ -77,7 +80,7 @@ def hr_linearize(arr):
 
 
 def smooth_HR_readings(df):
-    """Fix HR reading lags by smoothing the recorded values."""
+    """Smooth the recorded HR values."""
     df_1 = df[df['Secs'] == 1]
     mask_2 = df['Secs'] > 1     # problematic reading
     mask_1 = mask_2.shift(-1)   # previous reading
@@ -92,8 +95,8 @@ def smooth_HR_readings(df):
 
 
 def create_pandas_with_hrs(filepath):
-    """Create a Pandas dataframe with HRs from a .TCX file, and smooth
-    the readings in case of reading lags."""
+    """Create a Pandas dataframe with HRs from a .TCX file and smooth
+    the readings."""
     with open(filepath) as f:
         tcx = ET.parse(f)
     root = tcx.getroot()
