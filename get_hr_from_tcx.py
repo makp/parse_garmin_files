@@ -85,7 +85,7 @@ def smooth_HR_readings(df):
     mask_1.iloc[-1] = False     # otherwise the last element is a NaN value
     arr_hr1 = df[mask_1]['HRs'].values
     arr_hr2 = df[mask_2]['HRs'].values
-    arr_dt = df[mask_2]['Secs'].values - df[mask_1]['Secs'].values
+    arr_dt = df[mask_2]['Secs'].values
     arr = np.array([arr_hr1, arr_hr2, arr_dt])
     df_2 = pd.DataFrame(hr_linearize(np.transpose(arr)),
                         columns=["Secs", "HRs"])

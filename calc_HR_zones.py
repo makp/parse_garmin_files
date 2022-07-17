@@ -21,7 +21,7 @@ def create_lst_with_zones(filepath):
 def create_df_with_zones(lst_filepath):
     """Return a pandas dataframe from a list of .TCX files in which the
     columns list the amount of time spend at each HR zone---as
-    specified by 'zone_ranges.'"""
+    specified by the variable 'zone_ranges.'"""
     df = pd.DataFrame([], columns=list(zone_ranges.keys()))
     for _ in lst_filepath:
         lst = create_lst_with_zones(_)
