@@ -4,7 +4,6 @@ TCX file hieararchy:
 Root -> Activities -> Activity -> Lap -> Track -> Trackpoint
 
 Trackpoints are individual readings (HR, position, etc).
-The same Lap can have multiple Tracks if the activity was paused.
 """
 
 
