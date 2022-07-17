@@ -2,7 +2,7 @@ from get_hr_from_tcx import create_pandas_with_hrs
 import pandas as pd
 
 
-zone_ranges = {'z2': (113, 154), 'z3': (155, 164),
+zone_ranges = {'z2': (130, 154), 'z3': (155, 164),
                'z4': (165, 173), 'z5': (174, 200)}
 
 
